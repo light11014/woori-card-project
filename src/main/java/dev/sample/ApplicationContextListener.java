@@ -6,49 +6,52 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
-import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import dev.sample.config.datasource.DataSourceKeys;
+import dev.sample.config.datasource.HikariDataSourceFactory;
 
 @WebListener
 public class ApplicationContextListener implements ServletContextListener {
 
-    private HikariDataSource ds;
+    // WRITE, READ DataSource
+    private HikariDataSource writeDs;
+    private HikariDataSource readDs;
 
     @Override
-    public void contextInitialized(ServletContextEvent sce) {
-    	System.out.println("hi");
+    public void contextInitialized(ServletContextEvent sce) { // application시작
+        System.out.println("hi"); // 기존 로그 유지
+
         ServletContext ctx = sce.getServletContext();
-        
+
+        // JDBC Driver 명시 로딩
         try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("MySQL Driver not found", e);
+        }
 
-        HikariConfig config = new HikariConfig();
-        // 필수 설정값(별도의 설정파일로 분리 가능, ex. jdbc.properties)
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/card_db?serverTimezone=Asia/Seoul");
-        config.setUsername("root");
-        config.setPassword("1234");
+        // Factory를 통해 DataSource 생성
+        writeDs = HikariDataSourceFactory.createWriteDataSource();
+        readDs  = HikariDataSourceFactory.createReadDataSource();
 
-        // 선택 설정값 예시
-//        config.setMaximumPoolSize(10);
-//        config.setMinimumIdle(2);
-//        config.setConnectionTimeout(3000);
-//        config.setIdleTimeout(600000);
-//        config.setMaxLifetime(1800000);
-
-        ds = new HikariDataSource(config);
-
-        ctx.setAttribute("DATA_SOURCE", ds);
+        // ServletContext에 등록 (키 통일)
+        ctx.setAttribute(DataSourceKeys.WRITE_DS, writeDs);
+        ctx.setAttribute(DataSourceKeys.READ_DS, readDs);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        if (ds != null) ds.close(); // 애플리케이션 종료 시 커넥션 풀 자원해제
+        // 애플리케이션 종료 시 커넥션 풀 자원 해제
+        if (writeDs != null) writeDs.close();
+        if (readDs != null) readDs.close();
     }
-
-    public static DataSource getDataSource(ServletContext ctx) {
-        return (DataSource) ctx.getAttribute("DATA_SOURCE");
+    
+    public static DataSource getReadDataSource(ServletContext ctx) {
+        return (DataSource) ctx.getAttribute(DataSourceKeys.READ_DS);
+    }
+    
+    public static DataSource getWriteDataSource(ServletContext ctx) {
+        return (DataSource) ctx.getAttribute(DataSourceKeys.WRITE_DS);
     }
 }
