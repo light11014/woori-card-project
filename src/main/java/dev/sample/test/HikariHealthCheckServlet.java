@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.zaxxer.hikari.HikariDataSource;
+
+import dev.sample.config.datasource.DataSourceKeys;
+
 @WebServlet("/test/hikari")
-public class HikariHealthCheckServlet extends HttpServlet {
+public class HikariHealthCheckServlet extends HttpServlet { // write, read datasource 커넥션 제공 여부 확인
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -25,33 +29,52 @@ public class HikariHealthCheckServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         ServletContext ctx = getServletContext();
-        Object obj = ctx.getAttribute("DATA_SOURCE");
+
+        String dsParam = req.getParameter("ds");
+
+        String key;
+        if ("read".equalsIgnoreCase(dsParam)) {
+            key = DataSourceKeys.READ_DS;
+        } else {
+            key = DataSourceKeys.WRITE_DS; // WRITE
+        }
+
+        Object obj = ctx.getAttribute(key); // ApplicationContextListener에 등록한 객체 조회
         if (obj == null) {
             resp.setStatus(500);
-            out.println("FAIL: DATA_SOURCE not found in ServletContext");
+            out.println("FAIL: DataSource not found. key=" + key);
             return;
         }
 
         DataSource ds = (DataSource) obj;
 
-        String sql = "SELECT 1";
-
         long start = System.currentTimeMillis();
         try (Connection con = ds.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
+             PreparedStatement ps = con.prepareStatement("SELECT 1");
              ResultSet rs = ps.executeQuery()) {
 
             rs.next();
             int v = rs.getInt(1);
 
             long elapsed = System.currentTimeMillis() - start;
+            
+            // 응답 출력(검증 포인트)
             out.println("Status: OK");
+            out.println("dsType=" + ("READ_DS".equals(key) ? "READ" : "WRITE"));
             out.println("queryResult=" + v);
             out.println("elapsedMs=" + elapsed);
             out.println("connClass=" + con.getClass().getName());
+
+            // HikariDataSource면 최소 정보 출력
+            if (ds instanceof HikariDataSource) { // HikariCP 정보 출력
+                HikariDataSource hds = (HikariDataSource) ds;
+                out.println("poolName=" + hds.getPoolName());
+            }
+
         } catch (Exception e) {
             resp.setStatus(500);
-            out.println("FAIL: " + e.getClass().getName() + " - " + e.getMessage());
+            out.println("FAIL: " + e.getClass().getName());
+            out.println("message=" + e.getMessage());
         }
     }
 }
