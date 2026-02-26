@@ -9,7 +9,7 @@ public final class WriteDataSourceConfig {
     private WriteDataSourceConfig() {}
 
     public static final String JDBC_URL =
-        "jdbc:mysql://localhost:3306/card_db?serverTimezone=Asia/Seoul";
+        "jdbc:mysql://localhost:3306/woori_card?serverTimezone=Asia/Seoul";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "1234";
 
