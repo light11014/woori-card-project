@@ -20,7 +20,7 @@ public class ApplicationContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) { // application시작
-        System.out.println("hi"); // 기존 로그 유지
+        System.out.println("hi");
 
         ServletContext ctx = sce.getServletContext();
 
