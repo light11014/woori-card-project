@@ -22,7 +22,7 @@ public class QuarterlyTrendServlet extends HttpServlet {
             throws ServletException, IOException {
 
         ServletContext ctx = getServletContext();
-        DataSource ds = ApplicationContextListener.getDataSource(ctx);
+        DataSource ds = ApplicationContextListener.getReadDataSource(ctx);
 
         QuarterlyTrendDao dao = new JdbcQuarterlyTrendDao(ds);
         List<QuarterlyTrend> rows = dao.findAllQuarterlyTrends();
