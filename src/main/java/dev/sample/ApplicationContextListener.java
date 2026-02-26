@@ -16,7 +16,6 @@ public class ApplicationContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-    	System.out.println("hi");
         ServletContext ctx = sce.getServletContext();
         
         try {
