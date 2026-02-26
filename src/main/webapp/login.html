@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login-container {
+	background: #fff;
+	border-radius: 16px;
+	padding: 48px 40px;
+	width: 100%;
+	max-width: 420px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.login-header {
+	text-align: center;
+	margin-bottom: 36px;
+}
+
+.login-header h1 {
+	font-size: 28px;
+	font-weight: 700;
+	color: #1a1a2e;
+	margin-bottom: 8px;
+}
+
+.login-header p {
+	color: #888;
+	font-size: 14px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	color: #444;
+	margin-bottom: 8px;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 12px 16px;
+	border: 2px solid #e8e8e8;
+	border-radius: 8px;
+	font-size: 15px;
+	color: #333;
+	outline: none;
+	transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+	border-color: #667eea;
+}
+
+.error-message {
+	display: none;
+	background: #fff0f0;
+	border: 1px solid #ffcccc;
+	border-radius: 8px;
+	padding: 10px 14px;
+	color: #d93025;
+	font-size: 13px;
+	margin-bottom: 16px;
+	text-align: center;
+}
+
+.btn-login {
+	width: 100%;
+	padding: 14px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity 0.2s, transform 0.1s;
+	margin-top: 8px;
+}
+
+.btn-login:hover {
+	opacity: 0.9;
+}
+
+.btn-login:active {
+	transform: scale(0.98);
+}
+
+.hint {
+	margin-top: 24px;
+	padding: 14px;
+	background: #f8f9ff;
+	border-radius: 8px;
+	font-size: 12px;
+	color: #888;
+	text-align: center;
+	line-height: 1.8;
+}
+
+.hint strong {
+	color: #667eea;
+}
+</style>
+</head>
+<body>
+
+	<div class="login-container">
+		<div class="login-header">
+			<h1>🔐 로그인</h1>
+			<p>계정 정보를 입력하여 로그인하세요</p>
+		</div>
+
+		<!-- 로그인 실패 시 서버에서 ?error=true 파라미터 전달 -->
+		<div class="error-message" id="errorMsg">아이디 또는 비밀번호가 올바르지 않습니다.
+		</div>
+
+		<form action="login" method="POST">
+			<div class="form-group">
+				<label for="username">아이디</label> 
+				<input type="text" id="username" name="username" placeholder="아이디를 입력하세요" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="password">비밀번호</label> <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+			</div>
+
+			<button type="submit" class="btn-login">로그인</button>
+		</form>
+
+		<div class="hint">
+			테스트 계정 &nbsp;|&nbsp; ID: <strong>admin</strong> &nbsp;/&nbsp; PW: <strong>1234</strong>
+		</div>
+	</div>
+
+	<script>
+		// URL 파라미터로 에러 여부 확인
+		const params = new URLSearchParams(window.location.search);
+		if (params.get('error') === 'true') {
+			document.getElementById('errorMsg').style.display = 'block';
+		}
+	</script>
+
+</body>
+</html>
