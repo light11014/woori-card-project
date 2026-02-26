@@ -66,8 +66,12 @@ public class LoginServlet extends HttpServlet {
 	        ResultSet rs = pstmt.executeQuery();
 
 	        if (rs.next()) {
+	        	System.out.println("로그인 성공");
+	        	
 	        	String userId = rs.getString("user_id");
 	            return !userId.isEmpty();
+	            
+	   
 	        }
 
 	    } catch (SQLException e) {

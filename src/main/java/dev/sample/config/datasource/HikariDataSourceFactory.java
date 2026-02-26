@@ -12,7 +12,7 @@ public final class HikariDataSourceFactory { // final + private => 정적 메서
     public static HikariDataSource createWriteDataSource() { // 쓰기 전용 datasource 생성
         HikariConfig config = baseConfig();
 
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/card_db?serverTimezone=Asia/Seoul");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/woori_card?serverTimezone=Asia/Seoul");
         config.setUsername("root");
         config.setPassword("1234");
 
@@ -30,7 +30,7 @@ public final class HikariDataSourceFactory { // final + private => 정적 메서
     public static HikariDataSource createReadDataSource() {
         HikariConfig config = baseConfig();
 
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/card_db?serverTimezone=Asia/Seoul");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/woori_card?serverTimezone=Asia/Seoul");
         config.setUsername("root");
         config.setPassword("1234");
 

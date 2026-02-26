@@ -1,6 +1,18 @@
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - app-net
+
   woori-mysql-source:
-    build: ./source
+    build: ./db/source
     container_name: woori-card-mysql-source
     hostname: woori-mysql-source
     environment:
@@ -21,7 +33,7 @@ services:
       - app-net
 
   woori-mysql-replica:
-    build: ./replica
+    build: ./db/replica
     container_name: woori-card-mysql-replica
     hostname: woori-mysql-replica
     environment:
