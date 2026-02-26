@@ -28,7 +28,7 @@ public class JdbcDaoTemplate {
     }
 
     public <T> Optional<T> queryOne(String sql, RowMapper<T> mapper, Object... params) {
-        List<T> list = queryList(sql, mapper, params);
+        List<T> list = queryList(sql, mapper, params); // queryList() 재사용 => JDBC 로직 중복 제거 
         return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
     }
 
