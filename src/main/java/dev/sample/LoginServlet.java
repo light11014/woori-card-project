@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		ServletContext ctx = getServletContext();
 		DataSource ds = ApplicationContextListener.getReadDataSource(ctx);
 
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", username);
 			session.setMaxInactiveInterval(30 * 60);
 
-			response.sendRedirect("home");
+			response.sendRedirect(request.getContextPath() + "/home");
 
 		} else {
 			// 로그인 실패 → 로그인 페이지로 리다이렉트
@@ -53,31 +53,30 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private boolean isValidUser(DataSource ds, String username, String password) {
-	    if (username == null || password == null) return false;
+		if (username == null || password == null)
+			return false;
 
-	    String sql = "SELECT user_id FROM users WHERE user_id=? AND password=?";
+		String sql = "SELECT user_id FROM users WHERE user_id=? AND password=?";
 
-	    try (Connection con = ds.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-	    	
-	    	pstmt.setString(1, username);
-	    	pstmt.setString(2, password);
+		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-	        ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
 
-	        if (rs.next()) {
-	        	System.out.println("로그인 성공");
-	        	
-	        	String userId = rs.getString("user_id");
-	            return !userId.isEmpty();
-	            
-	   
-	        }
+			ResultSet rs = pstmt.executeQuery();
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+			if (rs.next()) {
+				System.out.println("로그인 성공");
 
-	    return false;
+				String userId = rs.getString("user_id");
+				return !userId.isEmpty();
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 }
