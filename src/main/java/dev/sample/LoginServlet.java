@@ -36,9 +36,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", username);
 			session.setMaxInactiveInterval(30 * 60);
 
-			// 브라우저 화면에 직접 출력
-			PrintWriter out = response.getWriter();
-			out.println("<h2>로그인 성공! 환영합니다, " + username + "님</h2>");
+			response.sendRedirect("trend/quarterly");
 
 		} else {
 			// 로그인 실패 → 로그인 페이지로 리다이렉트
