@@ -1,3 +1,4 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*, dev.sample.trend.QuarterlyTrend" %>
 
@@ -5,6 +6,8 @@
 HttpSession s = request.getSession(false);
 
 if (s == null || s.getAttribute("loginUser") == null) {
+	System.out.println(s);
+	System.out.println(s.getAttribute("loginUser")); // null?
     response.sendRedirect(request.getContextPath() + "/login.html");
     return;
 }
