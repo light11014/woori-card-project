@@ -2,6 +2,15 @@
 <%@ page import="java.util.*, dev.sample.trend.QuarterlyTrend" %>
 
 <%
+HttpSession s = request.getSession(false);
+
+if (s == null || s.getAttribute("loginUser") == null) {
+    response.sendRedirect(request.getContextPath() + "/login.html");
+    return;
+}
+%>
+
+<%
 List<QuarterlyTrend> rows = (List<QuarterlyTrend>) request.getAttribute("rows");
 if (rows == null) rows = Collections.emptyList();
 
@@ -143,7 +152,7 @@ body{
   <div class="card">
     <div class="header">
       <h1>환영합니다</h1>
-      <p><b><%= session.getAttribute("loginUser") %></b> 님, 최근 소비 요약을 확인하세요.</p>
+      <p><b><%= s.getAttribute("loginUser") %></b> 님, 최근 소비 요약을 확인하세요.</p>
     </div>
 
     <div class="summary">
