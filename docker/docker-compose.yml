@@ -6,8 +6,63 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    depends_on:
+      - tomcat1
+      - tomcat2
+    networks:
+      - app-net
+
+  tomcat1:
+    build: ./tomcat
+    container_name: woori-card-tomcat1
+    environment:
+      JVM_ROUTE: tomcat1
+      CLUSTER_PORT: 4001
+
+      DB_WRITE_HOST: woori-mysql-source
+      DB_WRITE_PORT: "3306"
+      DB_WRITE_NAME: ${MYSQL_DATABASE}
+      DB_WRITE_USER: ${MYSQL_USER}
+      DB_WRITE_PASSWORD: ${MYSQL_PASSWORD}
+
+      DB_READ_HOST: woori-mysql-replica
+      DB_READ_PORT: "3306"
+      DB_READ_NAME: ${MYSQL_DATABASE}
+      DB_READ_USER: ${MYSQL_USER}
+      DB_READ_PASSWORD: ${MYSQL_PASSWORD}
+
+    depends_on:
+      woori-mysql-source:
+        condition: service_healthy
+      woori-mysql-replica:
+        condition: service_healthy
+    networks:
+      - app-net
+
+  tomcat2:
+    build: ./tomcat
+    container_name: woori-card-tomcat2
+    environment:
+      JVM_ROUTE: tomcat2
+      CLUSTER_PORT: 4002
+
+      DB_WRITE_HOST: woori-mysql-source
+      DB_WRITE_PORT: "3306"
+      DB_WRITE_NAME: ${MYSQL_DATABASE}
+      DB_WRITE_USER: ${MYSQL_USER}
+      DB_WRITE_PASSWORD: ${MYSQL_PASSWORD}
+
+      DB_READ_HOST: woori-mysql-replica
+      DB_READ_PORT: "3306"
+      DB_READ_NAME: ${MYSQL_DATABASE}
+      DB_READ_USER: ${MYSQL_USER}
+      DB_READ_PASSWORD: ${MYSQL_PASSWORD}
+
+    depends_on:
+      woori-mysql-source:
+        condition: service_healthy
+      woori-mysql-replica:
+        condition: service_healthy
     networks:
       - app-net
 
