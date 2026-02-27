@@ -44,7 +44,7 @@ public class SignupServlet extends HttpServlet {
 	    }
 
 	    ServletContext ctx = getServletContext();
-	    DataSource ds = ApplicationContextListener.getReadDataSource(ctx);
+	    DataSource ds = ApplicationContextListener.getWriteDataSource(ctx);
 
 	    try (Connection con = ds.getConnection()) {
 
