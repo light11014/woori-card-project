@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.signup-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+.signup-header p {
+    color: #888;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #667eea;
+}
+
+.btn-signup {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+
+.btn-signup:hover {
+    opacity: 0.9;
+}
+
+.btn-signup:active {
+    transform: scale(0.98);
+}
+
+.back-login {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.back-login a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="signup-container">
+    <div class="signup-header">
+        <h1>📝 회원가입</h1>
+        <p>새로운 계정을 만들어보세요</p>
+    </div>
+
+    <form action="signup" method="POST">
+        <div class="form-group">
+            <label for="username">아이디</label>
+            <input type="text" id="username" name="username"
+                   placeholder="아이디를 입력하세요" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password"
+                   placeholder="비밀번호를 입력하세요" required>
+        </div>
+
+        <button type="submit" class="btn-signup">가입하기</button>
+    </form>
+
+    <div class="back-login">
+        이미 계정이 있으신가요?
+        <a href="login.html">로그인</a>
+    </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+if (params.get('error') === 'duplicate') {
+    alert("이미 존재하는 아이디입니다.");
+}
+
+if (params.get('error') === 'empty') {
+    alert("아이디와 비밀번호를 입력하세요.");
+}
+
+if (params.get('error') === 'db') {
+    alert("회원가입 중 오류가 발생했습니다.");
+}
+</script>
+
+</body>
+</html>
