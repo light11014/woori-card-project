@@ -1,0 +1,22 @@
+{
+  "Debug": true,
+
+  "MySQLTopologyUser": "orchestrator",
+  "MySQLTopologyPassword": "orchpw",
+  "DiscoverByShowSlaveHosts": true,
+
+  "AutoRecoverMaster": true,
+  "AutoRecoverReplica": true,
+  "AutoRejoinUnreachableMaster": true,
+  "ApplyMySQLPromotionAfterMasterFailover": true,
+  "DetachLostReplicasAfterMasterFailover": true,
+  
+  "RecoverMasterClusterFilters": ["*"],
+  "RecoveryPeriodBlockSeconds": 5,
+
+  "BackendDB": "sqlite",
+  "SQLite3DataFile": "/var/lib/orchestrator/orchestrator.db",
+
+  "RaftEnabled": false,
+  "HTTPPort": 3000
+}

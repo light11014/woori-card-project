@@ -33,7 +33,7 @@ services:
       - app-net
 
   woori-mysql-replica:
-    build: ./db/replica
+    build: ./db/replica1
     container_name: woori-card-mysql-replica
     hostname: woori-mysql-replica
     environment:
@@ -53,9 +53,46 @@ services:
     networks:
       - app-net
 
+  woori-mysql-replica2:
+    build: ./db/replica2
+    container_name: woori-card-mysql-replica2
+    hostname: woori-mysql-replica2
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${REPLICA2_PORT}:3306"
+    volumes:
+      - mysql_replica2_data:/var/lib/mysql
+    depends_on:
+      woori-mysql-source:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    networks:
+      - app-net
+
+  orchestrator:
+    image: openarkcode/orchestrator:latest
+    container_name: orchestrator
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./orchestrator/orchestrator.conf.json:/etc/orchestrator.conf.json
+      - orchestrator_data:/var/lib/orchestrator
+    depends_on:
+      woori-mysql-source:
+        condition: service_healthy
+    networks:
+      - app-net
+
 volumes:
   mysql_source_data:
   mysql_replica_data:
+  mysql_replica2_data:
+  orchestrator_data:
 
 networks:
   app-net:
