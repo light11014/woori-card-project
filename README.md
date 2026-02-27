@@ -32,7 +32,7 @@
 ### :whale: Infrastructure
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-> MySQL Source / Replica · Nginx 컨테이너 구성
+> MySQL Source / Replica · Nginx · Tomcat 2대 컨테이너 구성
 
 ---
 
@@ -43,6 +43,7 @@
 | :art: Presentation | JSP |
 | :gear: Application | Servlet (WAS 이중화) |
 | :file_cabinet: Data | MySQL Replication (Read/Write 분리) |
+| 🐳 Infrastructure | Docker (Nginx · Tomcat×2 · MySQL Source/Replica) |
 
 - :repeat: **WAS 이중화** — Apache Tomcat 2대 운영
 - :book: **Read / Write 분리** — HikariCP Connection Pool 기반
@@ -56,8 +57,7 @@
 - 로그인 / 로그아웃 기능 제공
 - `JSESSIONID` 기반 세션 관리
 - **Session Fixation 공격 방지 처리**
-- Nginx Session Replication 적용을 통한  
-  **WAS 이중화 환경에서도 로그인 세션 유지**
+- Nginx Session Replication 적용을 통한  **WAS 이중화 환경에서도 로그인 세션 유지**
 
 ---
 
@@ -105,3 +105,5 @@
 - Source 장애 발생 시
   - Replica 승격(Failover) 시나리오 설계
   - 서비스 연속성 확보
+  
+
