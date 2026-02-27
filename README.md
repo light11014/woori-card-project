@@ -56,9 +56,8 @@
 - 로그인 / 로그아웃 기능 제공
 - `JSESSIONID` 기반 세션 관리
 - **Session Fixation 공격 방지 처리**
-- Nginx Sticky Session 적용을 통한  
+- Nginx Session Replication 적용을 통한  
   **WAS 이중화 환경에서도 로그인 세션 유지**
-  > ⚠️ *Sticky Session 적용 여부는 현재 검토 중 (추후 수정 예정)*
 
 ---
 
