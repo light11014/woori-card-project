@@ -9,14 +9,14 @@ import lombok.ToString;
 @AllArgsConstructor
 public class QuarterlyTrend {
 
-	private final String quarter;
+    private final String quarter;
 
-	private final long food;
-	private final long car;
-	private final long travelCulture;
-	private final long insuranceHealth;
-	private final long educationOffice;
-	private final long shopping;
-	private final long living;
-	private final long home;
+    private final long food;
+    private final long car;
+    private final long travelCulture;
+    private final long insuranceHealth;
+    private final long educationOffice;
+    private final long shopping;
+    private final long living;
+    private final long home;
 }
