@@ -97,13 +97,6 @@
 - 조회(Read) 요청 → **Replica DB**
 - 쓰기(Write) 요청 → **Source DB**
 - HikariCP 기반 DataSource 분리 구성
-
----
-
-### 🛡 7. 장애 대응 설계
-- MySQL Replication 구성
-- Source 장애 발생 시
-  - Replica 승격(Failover) 시나리오 설계
-  - 서비스 연속성 확보
+- GTID 기반 MySQL Replication 환경 구축
   
 
