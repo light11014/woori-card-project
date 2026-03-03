@@ -181,7 +181,6 @@
 
 ### 포인트 3 — MySQL Replication (Source / Replica)
 
-- Source 장애 시 Replica 승격(Failover) → **DB 고가용성 확보**
 - 조회(Read)는 Replica, 쓰기(Write)는 Source로 역할 분리
 
 ```
@@ -204,15 +203,6 @@ read_only=ON              # 쓰기 차단
 SOURCE_AUTO_POSITION=1    # GTID 자동 위치 동기화
 ```
 
-**Failover 테스트 결과**
-
-| 시나리오 | 결과 |
-| --- | --- |
-| Source 장애 시 Replica 자동 승격 (Orchestrator) | ✅ 성공 |
-| 기존 Source 복구 후 자동 재편입 | ❌ 수동 재설정 필요 |
-
-> 보완 방향: `Orchestrator` + `SQL Proxy` 도입 시 완전 자동화 가능
-> 
 
 ---
 
