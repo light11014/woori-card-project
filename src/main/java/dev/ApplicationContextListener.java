@@ -1,4 +1,4 @@
-package dev.sample;
+package dev;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -8,8 +8,8 @@ import javax.sql.DataSource;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-import dev.sample.config.datasource.DataSourceKeys;
-import dev.sample.config.datasource.HikariDataSourceFactory;
+import dev.db.DataSourceKeys;
+import dev.db.HikariDataSourceFactory;
 
 @WebListener
 public class ApplicationContextListener implements ServletContextListener {
@@ -20,8 +20,6 @@ public class ApplicationContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) { // application시작
-        System.out.println("hi");
-
         ServletContext ctx = sce.getServletContext();
 
         // JDBC Driver 명시 로딩

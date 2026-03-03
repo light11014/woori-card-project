@@ -1,4 +1,4 @@
-package dev.sample.config.datasource;
+package dev.db;
 
 /**
  * READ 전용 DataSource 설정

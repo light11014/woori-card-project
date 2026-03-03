@@ -1,4 +1,4 @@
-package dev.sample.trend;
+package dev.trend;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

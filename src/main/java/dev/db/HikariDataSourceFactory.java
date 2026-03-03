@@ -1,4 +1,4 @@
-package dev.sample.config.datasource;
+package dev.db;
 
 import java.util.Properties;
 
