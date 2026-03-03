@@ -96,11 +96,6 @@
             ↑    ↑                   ↑
      회원가입  집계결과            트렌드 조회
      (INSERT) (INSERT, 배치)      (SELECT)
-                ↑                   ↑
-            배치 프로그램 ────────────┘
-            (분기 종료 시 Replica에서 집계 → Source에 저장)
-                ↓
-     GTID 기반 Replication (Source → Replica 실시간 복제)
 ```
 
 ---
