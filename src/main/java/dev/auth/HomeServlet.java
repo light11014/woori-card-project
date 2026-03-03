@@ -1,15 +1,21 @@
-package dev.sample.home;
+package dev.auth;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import dev.sample.ApplicationContextListener;
-import dev.sample.trend.*;
+import dev.ApplicationContextListener;
+import dev.trend.JdbcQuarterlyTrendDao;
+import dev.trend.QuarterlyTrend;
+import dev.trend.QuarterlyTrendDao;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {

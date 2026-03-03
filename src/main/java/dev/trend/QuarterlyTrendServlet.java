@@ -1,4 +1,4 @@
-package dev.sample.trend;
+package dev.trend;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import dev.sample.ApplicationContextListener;
+import dev.ApplicationContextListener;
 
 @WebServlet("/trend/quarterly")
 public class QuarterlyTrendServlet extends HttpServlet {

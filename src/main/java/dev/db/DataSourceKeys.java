@@ -1,4 +1,4 @@
-package dev.sample.config.datasource;
+package dev.db;
 
 /*
  * DataSource 키 상수 클래스
