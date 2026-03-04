@@ -2,9 +2,14 @@ package dev.auth.login;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class LoginService {
 
-    private LoginDao loginDao = new LoginDao();
+    @Autowired
+    private LoginDao loginDao;
 
     public boolean login(ServletContext ctx, String username, String password) {
 

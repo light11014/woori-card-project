@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Repository;
+
 import dev.ApplicationContextListener;
 
+@Repository
 public class LoginDao {
 
     public boolean login(ServletContext ctx, String username, String password) {

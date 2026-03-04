@@ -2,6 +2,31 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <distributable/>
   <display-name>sample-project</display-name>
+  
+  
+    <!-- Java Config 사용 -->
+  <context-param>
+      <param-name>contextClass</param-name>
+      <param-value>
+          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
+  </context-param>
+  
+   <!-- Spring 설정 클래스 위치 -->
+  <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>dev.AppConfig</param-value>
+  </context-param>
+
+    <!-- Spring Container 시작 -->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+  
+  
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
