@@ -1,4 +1,4 @@
-package dev.auth;
+package dev.auth.logout;
 
 import java.io.IOException;
 
