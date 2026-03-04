@@ -93,6 +93,8 @@ public final class HikariDataSourceFactory {
     // READ, WRITE 공통 설정
     private static HikariConfig baseConfig() {
         HikariConfig config = new HikariConfig();
+        
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         Properties props = new Properties();
         props.setProperty("cachePrepStmts", "true");

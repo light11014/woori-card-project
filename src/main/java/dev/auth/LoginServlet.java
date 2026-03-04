@@ -19,10 +19,7 @@ import dev.ApplicationContextListener;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
-	private static final String VALID_USERNAME = "admin";
-	private static final String VALID_PASSWORD = "1234";
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

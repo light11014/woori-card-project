@@ -12,4 +12,21 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.xhtml</welcome-file>
   </welcome-file-list>
+
+	<!-- Spring Context Loader -->
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+        org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    </param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>dev.AppConfig</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 </web-app>
