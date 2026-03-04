@@ -1,4 +1,4 @@
-package dev.auth;
+package dev.home;
 
 import java.io.IOException;
 import java.util.List;
