@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Repository;
+
+@Repository // Bean등록
 public class JdbcQuarterlyTrendDao implements QuarterlyTrendDao {
 
     private final DataSource ds;
